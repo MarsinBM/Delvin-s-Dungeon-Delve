@@ -7,10 +7,13 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     // Attributes
-    [SerializeField] int Health;
-    [SerializeField] int MaxHealth;
-    private int Attack = 5;
-    private float Evasion = 0f;
+    public int Health = 10;
+    public int MaxHealth = 10;
+    public int Attack = 5;
+    public float Evasion = 0f;
+    public int HealthPotions = 0;
+    public int SpeedPotions = 0;
+    public int HolyShields = 0;
 
     public int ActionPoints;
 
@@ -215,5 +218,13 @@ public class Player : MonoBehaviour
     {
         return ActionPoints;
     }
+
+    // Upgrades
+
+    public void Heal(int healAmount)
+    {
+        Health += healAmount;
+    }
+
 
 }
