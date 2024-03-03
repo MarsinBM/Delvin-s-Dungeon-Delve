@@ -5,19 +5,19 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     // Variables
-    [SerializeField] int dmgIncrease;
-    [SerializeField] float evIncrease;
-    [SerializeField] int hpIncrease;
-    [SerializeField] int hpPotionIncrease;
-    [SerializeField] int sdPotionIncrease;
-    [SerializeField] int hsIncrease;
+    private int dmgIncrease = 2;
+    private float evIncrease = 0.01f;
+    private int hpIncrease = 5;
+    private int hpPotionIncrease = 1;
+    private int sdPotionIncrease = 1;
+    private int hsIncrease = 1;
 
     private int EVlevel = 0;
 
     public Player player;
     
     // Increases the player's attack
-    public void AttackUp()
+    public void AttackUp() // #1
     {
         // Increase damage
         player.Attack += dmgIncrease;
@@ -25,7 +25,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Increases the player's evasion
-    public void EvadeUp()
+    public void EvadeUp() // #2
     {
         // Increase evasion
         if (EVlevel == 0)
@@ -41,7 +41,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Increases the player's max health & heals slightly
-    public void HealthUp()
+    public void HealthUp() // #3
     {
         // Increase max health + heal
         player.MaxHealth += hpIncrease;
@@ -53,7 +53,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Gives the player a Health potion 
-    public void GiveHealthPotion()
+    public void GiveHealthPotion() // #4
     {
         // Gives player +1 Health Potion, potion will restore the player's health to max
         player.HealthPotions += hpPotionIncrease;
@@ -61,7 +61,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Gives the player a Speed potion
-    public void GiveSpeedPotion()
+    public void GiveSpeedPotion() // #5
     {
         // Gives player +1 Speed Potion, potion will allow the player to do more actions per turn (either by giving them more action points or lower the cost of actions)
         player.SpeedPotions += sdPotionIncrease;
@@ -69,10 +69,9 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Gives the player a holy shield
-    public void HolyShield()
+    public void HolyShield() // #6
     {
         // Gives the player +1 Holy Shield, shield will block all damage for an x amount of turns
         player.HolyShields += hsIncrease;
-
     }
 }

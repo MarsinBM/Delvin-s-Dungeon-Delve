@@ -6,7 +6,9 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    // Attributes
+    // Variables
+
+    // Player Stats - gameplay invisible
     public int Health = 10;
     public int MaxHealth = 10;
     public int Attack = 5;
@@ -15,13 +17,22 @@ public class Player : MonoBehaviour
     public int SpeedPotions = 0;
     public int HolyShields = 0;
 
-    public int ActionPoints;
+    // Player Stats - gameplay invisible
+    public bool SpeedActive = false;
+    public int speedDuration = 3;
+
+    public bool ShieldActive = false;
+    public int shieldDuration = 3;
+
+    public int MaxAP = 100;
+    public int ActionPoints = 100;
 
     // Movement
     private bool isTravelling = false;
     [SerializeField] private float speed;
-    [SerializeField] private float distance;
+    private float distance = 1f;
 
+    // Raycast layer masks
     [SerializeField] LayerMask floorMask;
     [SerializeField] LayerMask wallMask;
     [SerializeField] LayerMask enemyMask;
@@ -30,15 +41,20 @@ public class Player : MonoBehaviour
     [SerializeField] Slider HealthBar;
     [SerializeField] TMP_Text healthtxt;
     [SerializeField] TMP_Text attacktxt;
-
-    void Start()
-    {
-        
-    }
+    [SerializeField] TMP_Text evadetxt;
 
     void Update()
     {
+        // Ensures health doesn't go above the intended amount
+        if(Health > MaxHealth)
+        {
+            Health = MaxHealth;
+        }
+
         Move();
+        ConsumableUpgrades();
+        SpeedPotionEffect();
+        HolyShieldEffect();
         AttackAction();
         PlayerUIUpdater();
     }
@@ -131,6 +147,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // For game start
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "AxeBlock")
@@ -179,6 +196,11 @@ public class Player : MonoBehaviour
             {
                 AttackEnemy(Vector3.right);
             }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ActionPoints -= 100;
+            }
         }
     }
 
@@ -190,8 +212,16 @@ public class Player : MonoBehaviour
             // Player Dodges the attack
             return;
         }
-        Health -= damage;
 
+        if (ShieldActive)
+        {
+            Health -= 0;
+        }
+        else
+        {
+            Health -= damage;
+        }
+        
         if (Health <= 0)
         {
             // Game Over
@@ -206,12 +236,13 @@ public class Player : MonoBehaviour
 
         healthtxt.text = "Health: " + Health.ToString();
         attacktxt.text = "Attack: " + Attack.ToString();
+        evadetxt.text = "Evasion: " + Evasion.ToString();
     }
 
     // Turn logic
     public void APreset()
     {
-        ActionPoints = 100;
+        ActionPoints = MaxAP;
     }
 
     public int GetAP()
@@ -220,11 +251,62 @@ public class Player : MonoBehaviour
     }
 
     // Upgrades
-
     public void Heal(int healAmount)
     {
         Health += healAmount;
     }
 
+    void ConsumableUpgrades()
+    {
+        // Use 1 health potion
+        if (HealthPotions >= 1 && Input.GetKeyDown(KeyCode.Z))
+        {
+            if (Health != MaxHealth)
+            {
+                // Heals the players
+                Heal(MaxHealth);
+                HealthPotions -= 1;
+            }
+        }
+
+        // Use 1 speed potion
+        if (SpeedPotions >= 1 && Input.GetKeyDown(KeyCode.X) && SpeedActive != true)
+        {
+            // Increase player speed for 3 turns 
+            SpeedPotions -= 1;
+            ActionPoints = ActionPoints * 2;
+            SpeedActive = true;
+        }
+
+        // Use 1 Holy Shield
+        if (HolyShields >= 1 && Input.GetKeyDown(KeyCode.C) && ShieldActive != true)
+        {
+            // Shield player from damage for a 3 turns
+            ShieldActive = true;
+            HolyShields -= 1;
+        }
+    }
+
+    // Gives the player more action points allowing them to act more per turn
+    void SpeedPotionEffect()
+    {
+        if (SpeedActive == true)
+        {
+            MaxAP = 200;
+        }
+        else
+        {
+            MaxAP = 100;
+            speedDuration = 3;
+        }
+    }
+
+    void HolyShieldEffect()
+    {
+        if (ShieldActive != true)
+        {
+            shieldDuration = 3;
+        }
+    }
 
 }

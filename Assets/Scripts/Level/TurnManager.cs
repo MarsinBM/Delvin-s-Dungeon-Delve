@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    // Variables
     public Player player;
     public Enemy[] enemies;
 
@@ -26,6 +27,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    // Checks if there are no enemies left
     bool NoEnemiesLeft()
     {
         foreach (Enemy enemy in enemies)
@@ -38,6 +40,7 @@ public class TurnManager : MonoBehaviour
         return true;
     }
 
+    // Handles what to do if it's the player's turn
     void PlayerTurn()
     {
         if (player.GetAP() <= 0)
@@ -47,9 +50,38 @@ public class TurnManager : MonoBehaviour
             {
                 enemy.mPreset();
             }
+            DecreaseSpeedPotion();
+            DecreaseShield();
         }
     }
 
+    // Decreasese the speed potions's duration each time a player turn ends
+    void DecreaseSpeedPotion()
+    {
+        if (player.SpeedActive == true)
+        {
+            player.speedDuration--;
+            if(player.speedDuration <= 0)
+            {
+                player.SpeedActive = false;
+            }
+        }
+    }
+
+    // Decrease the holy shield's duration each time a player turn ends
+    void DecreaseShield()
+    {
+        if (player.ShieldActive == true)
+        {
+            player.shieldDuration--;
+            if(player.shieldDuration <= 0)
+            {
+                player.ShieldActive = false;
+            }
+        }
+    }
+
+    // Handles what to do if it's the enemies' turn
     void EnemyTurn()
     {
         bool allEnemiesFinished = true;

@@ -5,32 +5,28 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    // Attributes
+    // Enemy Stats
     [SerializeField] int life;
     [SerializeField] int maxLife;
     [SerializeField] int damage;
 
-    public int movePoints;
+    [SerializeField] int movePoints;
 
     // Movement
     private bool isTravelling = false;
-    [SerializeField] private float speed;
-    [SerializeField] private float distance;
+    private float speed = 12;
+    private float distance = 1f;
 
     [SerializeField] Transform player;
 
+    // Raycast layer masks
     [SerializeField] LayerMask floorMask;
     [SerializeField] LayerMask wallMask;
     [SerializeField] LayerMask playerMask;
 
 
-    // Other
+    // UI
     [SerializeField] Slider lifeBar;
-
-    void Start()
-    {
-      
-    }
 
     void Update()
     {
@@ -38,27 +34,26 @@ public class Enemy : MonoBehaviour
         Move();
     }
 
-    // Enemy Movement
+    // Enemy Movement (Input)
     void Move()
     {
         if (!isTravelling && movePoints >= 100)
         {
-            Vector3 direction = Vector3.zero;
-
+            // Gets the player's position
             Vector3 difference = player.position - transform.position;
+            float dx = Mathf.Abs(difference.x);
+            float dz = Mathf.Abs(difference.z);
 
-            if (Mathf.Abs(difference.x) <= 1 && Mathf.Abs(difference.z) <= 1)
+            // Attacks the player only if they are directly adjacent to them
+            if ((dx == 1 && dz == 0) || (dz == 1 && dx == 0))
             {
                 AttackPlayer(difference.normalized);
                 return;
             }
 
-            float dx = Mathf.Abs(difference.x);
-            float dz = Mathf.Abs(difference.z);
-
+            // Move along the x axis
             if (dx > dz)
             {
-                // Move along x-axis
                 if (difference.x > 0 && IsMoveValid(Vector3.right))
                 {
                     EnemyMove(Vector3.right);
@@ -68,9 +63,9 @@ public class Enemy : MonoBehaviour
                     EnemyMove(Vector3.left);
                 }
             }
+            // Move along the z axis
             else
             {
-                // Move along z-axis
                 if (difference.z > 0 && IsMoveValid(Vector3.forward))
                 {
                     EnemyMove(Vector3.forward);
@@ -83,6 +78,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // Enemy Movement (Logic)
     void EnemyMove(Vector3 direction)
     {
         Vector3 destination = transform.position + direction * distance;

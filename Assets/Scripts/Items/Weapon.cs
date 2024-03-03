@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Weapon
 {
+    // Unused class for a previous weapon system
+
     // Variables
     [SerializeField] private int baseDamage;
     [SerializeField] private float baseAccuracy;

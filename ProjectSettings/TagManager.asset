@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Item
   - slot
+  - door
   layers:
   - Default
   - TransparentFX
