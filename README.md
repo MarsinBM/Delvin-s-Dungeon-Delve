@@ -4,10 +4,19 @@ Delvin's Dungeon Delve is a dungeon crawling game that takes place in the mythic
 # FEATURES & GAMEPLAY  
 -Tactical turnbased combat, healing doesn't come so easily  
 -An endless dungeon to explore that seems to follow no rhyme nor reason  
--Dangerous creatures out for your life
--Several powerful upgrades to aid you in your quest  
--A score system that shows you how well you did if you fall to the dungeons perils  
+-Dangerous creatures out for your life, they get stronger as you progress    
+-Several powerful upgrades to aid you in your quest 
+# CONTROLS
+'WASD' / Arrow Keys to move.    
+'Space' to wait a turn.    
+'z', 'x' & 'c' to use your upgrades. (if you have any)    
+Upgrades are chosen with the mouse.    
+# GAMES FLEADH 2024 TRAILER
+https://github.com/MarsinBM/Delvin-s-Dungeon-Delve/assets/91673992/591344ab-8b83-4649-9319-6fbd457372a8
 # CREDITS
 Code & game design by Marcin W. (me)  
-Art: proper credit will be given upon completion  
-Sound & Music: proper credit will be given upon completion  
+Art:    
+-Allsky Free Skyboxes - Unity Asset Store    
+-Textures and sprites - Game-icons.net    
+Sound & Music:    
+All audio was sourced from freesound.org    
