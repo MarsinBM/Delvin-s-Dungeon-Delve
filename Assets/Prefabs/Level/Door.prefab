@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9139047115935480258}
   - component: {fileID: 4151676890199716632}
   - component: {fileID: 5427954919107240700}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door
   m_TagString: door
   m_Icon: {fileID: 0}
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 7999369545349362131}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.5, y: 1, z: -0.5136}
-  m_LocalScale: {x: 1, y: 1, z: 3}
+  m_LocalPosition: {x: -12.5, y: 1.4122, z: -0.5136}
+  m_LocalScale: {x: 1, y: 1.8, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,6 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f69ffacf752edf42b883efaf1d971ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelBlocks:
-  - {fileID: 2791531016146564490, guid: acc3737850daaeb4394dc779481f6247, type: 3}
   OriginalCell: {fileID: 0}
+  UpgradePanel: {fileID: 522592610218513345, guid: f9d12f29e965f7b488ec64ac3fba3d21, type: 3}
+  NorthDoor: {fileID: 0}
+  SouthDoor: {fileID: 0}
+  WestDoor: {fileID: 0}
+  EastDoor: {fileID: 0}

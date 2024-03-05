@@ -42,6 +42,23 @@ public class Player : MonoBehaviour
     [SerializeField] TMP_Text healthtxt;
     [SerializeField] TMP_Text attacktxt;
     [SerializeField] TMP_Text evadetxt;
+    [SerializeField] TMP_Text hPottxt;
+    [SerializeField] TMP_Text sPottxt;
+    [SerializeField] TMP_Text shieldtxt;
+    [SerializeField] TMP_Text leveltxt;
+
+    [SerializeField] GameObject deathScreen;
+    [SerializeField] TMP_Text score;
+
+    [SerializeField] GameObject introText;
+
+    public bool isUpgradeOpen = false;
+
+    // Other
+    private bool isDead = false;
+
+    // Audio
+    [SerializeField] AudioSource attackSound;
 
     void Update()
     {
@@ -62,7 +79,7 @@ public class Player : MonoBehaviour
     // Player Movement (Input)
     void Move()
     {
-        if (!isTravelling && ActionPoints >= 100)
+        if (!isTravelling && ActionPoints >= 100 && !isUpgradeOpen && !isDead)
         {
             if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && FloorCheck(Vector3.forward) && WallCheck(Vector3.forward) && EnemyCheck(Vector3.forward))
             {
@@ -152,8 +169,12 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.name == "AxeBlock")
         {
+            GameObject spotlight = GameObject.Find("AxeBlockLight");
             attacktxt.gameObject.SetActive(true);
             Destroy(other.gameObject);
+            Destroy(spotlight.gameObject);
+            Destroy(introText.gameObject);
+            LevelManager.instance.Level00();
         }
     }
 
@@ -167,6 +188,7 @@ public class Player : MonoBehaviour
             if (enemy != null)
             {
                 enemy.enemyTakeLife(Attack);
+                attackSound.Play();
                 ActionPoints -= 100;  
             }
             
@@ -175,7 +197,7 @@ public class Player : MonoBehaviour
 
     void AttackAction()
     {
-        if (!isTravelling && ActionPoints >= 100)
+        if (!isTravelling && ActionPoints >= 100 && !isUpgradeOpen && !isDead)
         {
             if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
             {
@@ -197,6 +219,7 @@ public class Player : MonoBehaviour
                 AttackEnemy(Vector3.right);
             }
 
+            // Wait a turn
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 ActionPoints -= 100;
@@ -209,7 +232,7 @@ public class Player : MonoBehaviour
     {
         if(Random.value <= Evasion)
         {
-            // Player Dodges the attack
+            Debug.Log("Dodged attack");
             return;
         }
 
@@ -224,7 +247,8 @@ public class Player : MonoBehaviour
         
         if (Health <= 0)
         {
-            // Game Over
+            isDead = true;
+            deathScreen.SetActive(true);
         }
     }
 
@@ -234,15 +258,49 @@ public class Player : MonoBehaviour
         HealthBar.value = Health;
         HealthBar.maxValue = MaxHealth;
 
-        healthtxt.text = "Health: " + Health.ToString();
-        attacktxt.text = "Attack: " + Attack.ToString();
-        evadetxt.text = "Evasion: " + Evasion.ToString();
+        float evadePercent = Evasion * 100f;
+
+        healthtxt.text = "LIFE: " + Health.ToString();
+        attacktxt.text = "POWER: " + Attack.ToString();
+        evadetxt.text = ("EVASION: " + evadePercent.ToString("0")+ "%");
+        hPottxt.text = HealthPotions.ToString();
+        sPottxt.text = SpeedPotions.ToString();
+        shieldtxt.text = HolyShields.ToString();
+        leveltxt.text = "Level: " + LevelManager.instance.levelCounter;
+        score.text = "YOU DIED ON LEVEL " + LevelManager.instance.levelCounter;
+
+        if(Health != MaxHealth)
+        {
+            HealthBar.gameObject.SetActive(true);
+        }
+        if(Evasion > 0)
+        {
+            evadetxt.gameObject.SetActive(true);
+        }
+        if(HealthPotions > 0)
+        {
+            hPottxt.gameObject.SetActive(true);
+        }
+        if(SpeedPotions > 0)
+        {
+            sPottxt.gameObject.SetActive(true);
+        }
+        if(HolyShields > 0)
+        {
+            shieldtxt.gameObject.SetActive(true);
+        }
+        if(LevelManager.instance.levelCounter > 0)
+        {
+            leveltxt.gameObject.SetActive(true);
+        }
     }
 
     // Turn logic
     public void APreset()
     {
-        ActionPoints = MaxAP;
+        int maximumActions;
+        maximumActions = MaxAP;
+        ActionPoints = maximumActions;
     }
 
     public int GetAP()

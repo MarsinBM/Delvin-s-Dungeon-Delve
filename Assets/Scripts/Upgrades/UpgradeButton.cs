@@ -13,8 +13,6 @@ public class UpgradeButton : MonoBehaviour
     [SerializeField] TMP_Text uName;
     [SerializeField] GameObject UpgradePanel;
 
-    public UpgradeManager umanager;
-
     [SerializeField] Sprite attackUp;
     [SerializeField] Sprite evadeUp;
     [SerializeField] Sprite healthUp;
@@ -22,10 +20,15 @@ public class UpgradeButton : MonoBehaviour
     [SerializeField] Sprite sdPotion;
     [SerializeField] Sprite shield;
 
+    private Player player;
+
     void Start()
     {
         chosenUpgrade = Random.Range(1, 7);
-        SetUpgrade(chosenUpgrade);  
+        SetUpgrade(chosenUpgrade);
+
+        GameObject ThePlayer = GameObject.Find("Player");
+        player = ThePlayer.GetComponent<Player>();
     }
 
     void SetUpgrade(int upgrade)
@@ -54,7 +57,7 @@ public class UpgradeButton : MonoBehaviour
                 break;
             case 6:
                 uIcon.sprite = shield;
-                uName.text = "HOLY SHIED";
+                uName.text = "HOLY SHIELD";
                 break;
         }
     }
@@ -64,22 +67,22 @@ public class UpgradeButton : MonoBehaviour
         switch (chosenUpgrade)
         {
             case 1:
-                umanager.AttackUp();
+                UpgradeManager.instance.AttackUp();
                 break;
             case 2:
-                umanager.EvadeUp();
+                UpgradeManager.instance.EvadeUp();
                 break;
             case 3:
-                umanager.HealthUp();
+                UpgradeManager.instance.HealthUp();
                 break;
             case 4:
-                umanager.GiveHealthPotion();
+                UpgradeManager.instance.GiveHealthPotion();
                 break;
             case 5:
-                umanager.GiveSpeedPotion();
+                UpgradeManager.instance.GiveSpeedPotion();
                 break;
             case 6:
-                umanager.HolyShield();
+                UpgradeManager.instance.HolyShield();
                 break;
         }
     }
@@ -87,6 +90,7 @@ public class UpgradeButton : MonoBehaviour
     public void ClosePanel()
     {
         Destroy(UpgradePanel);
+        player.isUpgradeOpen = false;
     }
 
 }

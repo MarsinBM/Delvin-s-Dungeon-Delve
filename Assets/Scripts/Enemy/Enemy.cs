@@ -11,22 +11,57 @@ public class Enemy : MonoBehaviour
     [SerializeField] int damage;
 
     [SerializeField] int movePoints;
+    [SerializeField] int maxPoints;
 
     // Movement
     private bool isTravelling = false;
     private float speed = 12;
     private float distance = 1f;
 
-    [SerializeField] Transform player;
+    private Transform player;
 
     // Raycast layer masks
     [SerializeField] LayerMask floorMask;
     [SerializeField] LayerMask wallMask;
     [SerializeField] LayerMask playerMask;
+    [SerializeField] LayerMask enemyMask;
 
+    // Teleporting
+    private Vector3 lastStablePos;
+    public bool isTeleported;
+    private Vector3 stopPos;
 
     // UI
     [SerializeField] Slider lifeBar;
+
+    void Start()
+    {
+        lastStablePos = transform.position;
+
+        GameObject ThePlayer = GameObject.Find("Player");
+        player = ThePlayer.transform;
+
+        EnemyScaling(LevelManager.instance.levelCounter);
+    }
+
+    // Increases the enemies stats every 5 levels
+    void EnemyScaling(int gameLevel)
+    {
+        int HPincreaseAmount = 5;
+        int DMGincreaseAmount = 1;
+
+        if (gameLevel >= 5 && gameLevel % 5 == 0)
+        {
+            int Multiplier = (gameLevel / 5);
+            int HPincrease = HPincreaseAmount * Multiplier;
+            int DMGincrease = DMGincreaseAmount * Multiplier;
+
+            maxLife += HPincrease;
+            damage += DMGincrease;
+
+            life = maxLife;
+        }
+    }
 
     void Update()
     {
@@ -51,16 +86,24 @@ public class Enemy : MonoBehaviour
                 return;
             }
 
+            bool CanMove = false;
+
             // Move along the x axis
             if (dx > dz)
             {
                 if (difference.x > 0 && IsMoveValid(Vector3.right))
                 {
                     EnemyMove(Vector3.right);
+                    CanMove = true;
                 }
                 else if (difference.x < 0 && IsMoveValid(Vector3.left))
                 {
                     EnemyMove(Vector3.left);
+                    CanMove = true;
+                }
+                else
+                {
+                    CanMove = false;
                 }
             }
             // Move along the z axis
@@ -69,19 +112,31 @@ public class Enemy : MonoBehaviour
                 if (difference.z > 0 && IsMoveValid(Vector3.forward))
                 {
                     EnemyMove(Vector3.forward);
+                    CanMove = true;
                 }
                 else if (difference.z < 0 && IsMoveValid(Vector3.back))
                 {
                     EnemyMove(Vector3.back);
+                    CanMove = true;
                 }
+                else
+                {
+                    CanMove = false;
+                }
+            }
+
+            // If the enemy can't move they wait
+            if (CanMove == false)
+            {
+                movePoints -= 100;
             }
         }
     }
 
     // Enemy Movement (Logic)
-    void EnemyMove(Vector3 direction)
+    void EnemyMove(Vector3 direction, Vector3? newDestination = null)
     {
-        Vector3 destination = transform.position + direction * distance;
+        Vector3 destination = newDestination.HasValue ? newDestination.Value : transform.position + direction * distance;
         StartCoroutine(MoveToDest(destination));
     }
 
@@ -91,13 +146,12 @@ public class Enemy : MonoBehaviour
         while (Vector3.Distance(transform.position, destination) > 0f)
         {
             transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-
             yield return null;
         }
         isTravelling = false;
         movePoints -= 100;
+        UpdatePos();
     }
-
 
     // Collisions/Movechecks
     bool IsMoveValid(Vector3 direction)
@@ -105,8 +159,9 @@ public class Enemy : MonoBehaviour
         bool hasFloor = FloorCheck(direction);
         bool hasWall = WallCheck(direction);
         bool hasPlayer = PlayerCheck(direction);
+        bool hasOtherEnemy = OtherEnemyCheck(direction);
 
-        return hasFloor && hasWall && hasPlayer;
+        return hasFloor && hasWall && hasPlayer && hasOtherEnemy;
     }
 
     bool FloorCheck(Vector3 direction)
@@ -148,6 +203,43 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    bool OtherEnemyCheck(Vector3 direction)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, direction, out hit, 1f, enemyMask))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if(transform.GetSiblingIndex() == 0 || transform.GetSiblingIndex() % 2 == 0)
+            {
+                TeleportToPos();
+                StopAllCoroutines();
+            }
+        }
+    }
+
+    // Teleporting
+    private void UpdatePos()
+    {
+        lastStablePos = transform.position;
+    }
+
+    private void TeleportToPos()
+    {
+        transform.position = lastStablePos;
+        EnemyMove(Vector3.zero, lastStablePos);
+    }
+
     // Attacking
     void AttackPlayer(Vector3 direction)
     {
@@ -182,10 +274,11 @@ public class Enemy : MonoBehaviour
     }
 
     // Turn Logic
-
     public void mPreset()
     {
-        movePoints = 100;
+        int maximumpoints;
+        maximumpoints = maxPoints;
+        movePoints = maximumpoints;
     }
 
     public int GetmP()

@@ -1,5 +1,195 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &211898211942013123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3768988386324219597}
+  - component: {fileID: 4233777925020121224}
+  m_Layer: 0
+  m_Name: Enemy Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3768988386324219597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211898211942013123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4188265656968040359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4233777925020121224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211898211942013123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262bdffa886e5af4daaddf61596c8405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnTiles:
+  - {fileID: 1883223060084697082}
+  - {fileID: 5065949547574827512}
+  - {fileID: 1613131517634217042}
+  - {fileID: 6710024784501634557}
+  - {fileID: 8810187512184779857}
+  - {fileID: 9091576373884927021}
+  - {fileID: 6209370092755111449}
+  - {fileID: 4084569949870935636}
+  - {fileID: 3828928457518112796}
+  - {fileID: 9170097597823381246}
+  - {fileID: 5028787226540278641}
+  - {fileID: 5989607205555982213}
+  - {fileID: 1561149088871463454}
+  - {fileID: 1758548259029870495}
+  - {fileID: 290438496266361936}
+  - {fileID: 6531653681474463548}
+  - {fileID: 814522720324467134}
+  - {fileID: 3846645690319150026}
+  - {fileID: 6940173306290014758}
+  - {fileID: 2698678353505676807}
+  - {fileID: 1513776948063826211}
+  - {fileID: 7771221358113977870}
+  - {fileID: 3851341124636002366}
+  - {fileID: 3441772196650865121}
+  - {fileID: 201231688125236986}
+  - {fileID: 3721847779899655320}
+  - {fileID: 1464137201343221270}
+  - {fileID: 4884923303757112653}
+  - {fileID: 7197440720667513765}
+  - {fileID: 5244819241267432724}
+  - {fileID: 4861664518899853676}
+  - {fileID: 5858804637619946836}
+  - {fileID: 3138518628561529862}
+  - {fileID: 3825053422417603331}
+  - {fileID: 8847931823791673180}
+  - {fileID: 8062802324146646768}
+  - {fileID: 1898181199729574213}
+  - {fileID: 3538736601268906255}
+  - {fileID: 5091731109927630092}
+  - {fileID: 6128497283710972346}
+  - {fileID: 4010661792528256577}
+  - {fileID: 7753980917191317605}
+  - {fileID: 6865151923927558176}
+  - {fileID: 8437797006967585496}
+  - {fileID: 3376914108791328556}
+  - {fileID: 5161264868447387609}
+  - {fileID: 6749012960052698483}
+  - {fileID: 4139957500520875307}
+  - {fileID: 7285382933654482362}
+  - {fileID: 6194471098847547055}
+  - {fileID: 4683817017467272615}
+  - {fileID: 8855470397076838575}
+  - {fileID: 6146394545744701327}
+  - {fileID: 4813802070580552996}
+  - {fileID: 5482276860613874002}
+  - {fileID: 7973105125809699689}
+  - {fileID: 5688178646422953368}
+  - {fileID: 5883175492185401692}
+  - {fileID: 2782061400627771150}
+  - {fileID: 1629753565716672511}
+  - {fileID: 3674386559058448463}
+  - {fileID: 839286546243468340}
+  - {fileID: 9107904354074958120}
+  - {fileID: 5130501547627626933}
+  - {fileID: 3492216096692018548}
+  - {fileID: 6138130207894689636}
+  - {fileID: 9055345492509131073}
+  - {fileID: 6038960939058319506}
+  - {fileID: 3311961532530165891}
+  - {fileID: 4565990943083946153}
+  - {fileID: 6179598250633604599}
+  - {fileID: 2050717999245591594}
+  - {fileID: 660303102511844713}
+  - {fileID: 1511002534391077807}
+  - {fileID: 1989955590325748173}
+  - {fileID: 6654700404372332487}
+  - {fileID: 8521677252108622433}
+  - {fileID: 7659810209214514854}
+  - {fileID: 3805025258249118650}
+  - {fileID: 4467328023064666900}
+  - {fileID: 4119028092943322260}
+  - {fileID: 2739812815016524968}
+  - {fileID: 4290100537763807550}
+  - {fileID: 9016565047034155793}
+  - {fileID: 8913373152804638163}
+  - {fileID: 5012890447967250167}
+  - {fileID: 433178003708964381}
+  - {fileID: 6754056498296773893}
+  - {fileID: 3261948716254183330}
+  - {fileID: 6209953972584898059}
+  - {fileID: 977130645459658523}
+  - {fileID: 7968731114080164756}
+  - {fileID: 5354737329031902846}
+  - {fileID: 5322077507410668189}
+  - {fileID: 7883311630375676543}
+  - {fileID: 7557926331499670965}
+  - {fileID: 6810370692608472368}
+  - {fileID: 7606430213549835577}
+  - {fileID: 4238614444710410812}
+  - {fileID: 4032324164109004990}
+  - {fileID: 6610600711756104513}
+  - {fileID: 5464061229411618427}
+  - {fileID: 5481712973471156973}
+  - {fileID: 7185339293738369437}
+  - {fileID: 8941943943020155641}
+  - {fileID: 8438389461712307988}
+  - {fileID: 119899214985398951}
+  - {fileID: 3734707088065568388}
+  - {fileID: 1984107626796941881}
+  - {fileID: 4286786605573152867}
+  - {fileID: 3522826595162860018}
+  - {fileID: 1010780965871891063}
+  - {fileID: 3859860405222829421}
+  - {fileID: 4634767528272828535}
+  - {fileID: 25640900983262370}
+  - {fileID: 6001278384031731928}
+  - {fileID: 5163943063956732818}
+  - {fileID: 4531322720418940279}
+  - {fileID: 6643701108199299495}
+  - {fileID: 1203414225042772034}
+  - {fileID: 2695671081967652920}
+  - {fileID: 7299528053789782910}
+  - {fileID: 4118372943002490129}
+  - {fileID: 6157829255981841476}
+  - {fileID: 6179824629997992116}
+  - {fileID: 4730806154109556559}
+  - {fileID: 7626216685463790335}
+  - {fileID: 352794579111761906}
+  - {fileID: 5815852016276618345}
+  - {fileID: 1062360395763160390}
+  - {fileID: 5973557958320855924}
+  - {fileID: 181014198886128624}
+  - {fileID: 8524973265384723456}
+  - {fileID: 7011361431742918803}
+  - {fileID: 8317394996679033237}
+  - {fileID: 7716545200927176866}
+  - {fileID: 790708223038352081}
+  - {fileID: 2601946606401998828}
+  - {fileID: 2699993571402633031}
+  - {fileID: 1582245918890952120}
+  - {fileID: 2928913930605447445}
+  - {fileID: 7862265487051704209}
+  - {fileID: 1153302019570963429}
+  Enemies:
+  - {fileID: 775838246799444229, guid: 1db7d3432cf61004387ba700387e74e1, type: 3}
 --- !u!1 &879903049854494904
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +331,7 @@ Transform:
   - {fileID: 5235130784293155954}
   - {fileID: 713666064912362743}
   - {fileID: 7938827751375557676}
+  - {fileID: 3768988386324219597}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3696345497258299849
@@ -1172,6 +1363,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5235130784293155954}
     m_Modifications:
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: EastDoor
+      value: 
+      objectReference: {fileID: 8846550116948380547}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: WestDoor
+      value: 
+      objectReference: {fileID: 7285528057688663565}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: NorthDoor
+      value: 
+      objectReference: {fileID: 6755376593338767918}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: SouthDoor
+      value: 
+      objectReference: {fileID: 7920546799373972246}
     - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
       propertyPath: OriginalCell
       value: 
@@ -2801,6 +3008,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5235130784293155954}
     m_Modifications:
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: EastDoor
+      value: 
+      objectReference: {fileID: 8846550116948380547}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: WestDoor
+      value: 
+      objectReference: {fileID: 7285528057688663565}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: NorthDoor
+      value: 
+      objectReference: {fileID: 6755376593338767918}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: SouthDoor
+      value: 
+      objectReference: {fileID: 7920546799373972246}
     - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
       propertyPath: OriginalCell
       value: 
@@ -4678,6 +4901,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5235130784293155954}
     m_Modifications:
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: EastDoor
+      value: 
+      objectReference: {fileID: 8846550116948380547}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: WestDoor
+      value: 
+      objectReference: {fileID: 7285528057688663565}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: NorthDoor
+      value: 
+      objectReference: {fileID: 6755376593338767918}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: SouthDoor
+      value: 
+      objectReference: {fileID: 7920546799373972246}
     - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
       propertyPath: OriginalCell
       value: 
@@ -9965,6 +10204,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5235130784293155954}
     m_Modifications:
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: EastDoor
+      value: 
+      objectReference: {fileID: 8846550116948380547}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: WestDoor
+      value: 
+      objectReference: {fileID: 7285528057688663565}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: NorthDoor
+      value: 
+      objectReference: {fileID: 6755376593338767918}
+    - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
+      propertyPath: SouthDoor
+      value: 
+      objectReference: {fileID: 7920546799373972246}
     - target: {fileID: 5427954919107240700, guid: bf5ed3c71b1e9824792396726925d4a0, type: 3}
       propertyPath: OriginalCell
       value: 

@@ -6,24 +6,48 @@ public class TurnManager : MonoBehaviour
 {
     // Variables
     public Player player;
-    public Enemy[] enemies;
+    public List<Enemy> enemies = new List<Enemy>();
 
     private bool playerTurn = true;
+    //private int enemyIndex = 0;
 
     void Start()
     {
         player.APreset();
+        StartCoroutine(SearchForEnemies());
+        
     }
 
     void Update()
     {
         if (playerTurn)
         {
+            //Debug.Log("Player");
             PlayerTurn();
         }
         else
         {
+            //Debug.Log("Enemy");
             EnemyTurn();
+        }
+    }
+
+    // A coroutine that searches for enemies
+    IEnumerator SearchForEnemies()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            Enemy[] foundEnemies = FindObjectsOfType<Enemy>();
+            foreach (Enemy enemy in foundEnemies)
+            {
+                if (!enemies.Contains(enemy))
+                {
+                    enemies.Add(enemy);
+                }
+            }
+            enemies.RemoveAll(enemy => enemy == null);
         }
     }
 
@@ -61,7 +85,7 @@ public class TurnManager : MonoBehaviour
         if (player.SpeedActive == true)
         {
             player.speedDuration--;
-            if(player.speedDuration <= 0)
+            if (player.speedDuration <= 0)
             {
                 player.SpeedActive = false;
             }
@@ -74,7 +98,7 @@ public class TurnManager : MonoBehaviour
         if (player.ShieldActive == true)
         {
             player.shieldDuration--;
-            if(player.shieldDuration <= 0)
+            if (player.shieldDuration <= 0)
             {
                 player.ShieldActive = false;
             }
@@ -90,7 +114,7 @@ public class TurnManager : MonoBehaviour
             if (enemy.GetmP() > 0)
             {
                 enemy.mPreset();
-                allEnemiesFinished = false;
+                allEnemiesFinished = true;
             }
         }
 

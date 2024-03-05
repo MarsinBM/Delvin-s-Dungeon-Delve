@@ -15,10 +15,19 @@ public class DoorSpawn : MonoBehaviour
     [SerializeField] GameObject WestA;
     [SerializeField] GameObject EastA;
 
+    private GameObject Camera;
+
+    void Start()
+    {
+        Camera = GameObject.Find("Camera");
+    }
+
     private void OnTriggerEnter(Collider other)
     { 
         if (other.gameObject.name == "Player")
         {
+            LevelManager.instance.IncreaseLevel();
+            LevelManager.instance.DeleteCells();
             Destroy(gameObject);
             ActivateDoors();
         }
@@ -47,10 +56,16 @@ public class DoorSpawn : MonoBehaviour
             direction = 4;
         }
 
+        Vector3 originalCamPos = Camera.transform.position;
+        float distance = 19f;
+
         switch (direction)
         {
             case 1:
                 //Debug.Log("North");
+                Vector3 moveCamSouth = originalCamPos + Vector3.back * distance;
+                Camera.transform.position = moveCamSouth;
+
                 SouthDoor.SetActive(true);
                 WestDoor.SetActive(true);
                 EastDoor.SetActive(true);
@@ -61,6 +76,9 @@ public class DoorSpawn : MonoBehaviour
                 break;
             case 2:
                 //Debug.Log("South");
+                Vector3 moveCamNorth = originalCamPos + Vector3.forward * distance;
+                Camera.transform.position = moveCamNorth;
+
                 NorthDoor.SetActive(true);
                 WestDoor.SetActive(true);
                 EastDoor.SetActive(true);
@@ -71,6 +89,9 @@ public class DoorSpawn : MonoBehaviour
                 break;
             case 3:
                 //Debug.Log("West");
+                Vector3 moveCamEast = originalCamPos + Vector3.right * distance;
+                Camera.transform.position = moveCamEast;
+
                 NorthDoor.SetActive(true);
                 SouthDoor.SetActive(true);
                 EastDoor.SetActive(true);
@@ -81,6 +102,9 @@ public class DoorSpawn : MonoBehaviour
                 break;
             case 4:
                 //Debug.Log("East");
+                Vector3 moveCamWest = originalCamPos + Vector3.left * distance;
+                Camera.transform.position = moveCamWest;
+
                 NorthDoor.SetActive(true);
                 WestDoor.SetActive(true);
                 SouthDoor.SetActive(true);

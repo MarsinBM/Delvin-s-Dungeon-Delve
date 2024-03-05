@@ -15,7 +15,21 @@ public class UpgradeManager : MonoBehaviour
     private int EVlevel = 0;
 
     public Player player;
-    
+
+    public static UpgradeManager instance;
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Increases the player's attack
     public void AttackUp() // #1
     {
@@ -40,15 +54,15 @@ public class UpgradeManager : MonoBehaviour
 
     }
 
-    // Increases the player's max health & heals slightly
+    // Increases the player's max health
     public void HealthUp() // #3
     {
-        // Increase max health + heal
-        player.MaxHealth += hpIncrease;
-        if (player.Health != player.MaxHealth)
-        {
-            player.Heal(2);
-        }
+        // Increase max health (tries to keep the player's health percentage the same)
+        int newMaxHealth = player.MaxHealth + hpIncrease;
+        float healthPercentage = ((float)player.Health / player.MaxHealth);
+
+        player.MaxHealth = newMaxHealth;
+        player.Health = Mathf.RoundToInt(healthPercentage * newMaxHealth);
 
     }
 
